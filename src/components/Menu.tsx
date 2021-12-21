@@ -3,11 +3,11 @@ import Head from 'next/head'
 import styles from '../../styles/Home.module.scss'
 
 import { Disclosure } from '@headlessui/react'
-import { HeartIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { HeartIcon, MenuIcon, MailIcon, XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 import React,{Component} from 'react'
-
 
 const navigation = [
     { name: 'Accueil', href: '/', current: false },
@@ -18,8 +18,11 @@ const navigation = [
     return classes.filter(Boolean).join(' ')
   }
 
-class Menu extends Component {
-render(){
+const Menu = ()=>{
+// class Menu extends Component{
+// render(){
+    // Utilisation de ce hook pour notre active link
+    const router = useRouter()
     return (
         <div>
         <Head>
@@ -70,10 +73,10 @@ render(){
                             href={item.href}
                           >
                         <a className={classNames(
-                              item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              item.href === router.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                               'px-3 py-2 rounded-md text-sm font-medium'
                             )}
-                            aria-current={item.current ? 'page' : undefined}>
+                          >
                         {item.name}
                         </a>
                         </Link>
@@ -81,18 +84,28 @@ render(){
                       </div>
                     </div>
                   </div>
+                  
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <Link href="/favoris" passHref>
-                    <button
-                      type="button"
-                      className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                    >
-                      {/* <span className="sr-only">View notifications</span> */}
-                      
-                      <HeartIcon className="h-6 w-6" aria-hidden="true" />
-                    </button> 
-                    </Link>
+                    <div className="pr-3">
+                      <button
+                        type="button"
+                        className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      >
+                        <MailIcon className="h-6 w-6" aria-hidden="true" />
+                      </button>
+                    </div>
+                    <div>
+                      <Link href="/favoris" passHref>
+                      <button
+                        type="button"
+                        className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      >                      
+                        <HeartIcon className="h-6 w-6" aria-hidden="true" />
+                      </button> 
+                      </Link>
+                    </div>
                   </div>
+          
                 </div>
               </div>
     
@@ -105,10 +118,9 @@ render(){
                     >
                       <a
                         className={classNames(
-                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          item.href === router.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                             'block px-3 py-2 rounded-md text-base font-medium'
                           )}
-                          aria-current={item.current ? 'page' : undefined}
                       >{item.name}</a>
                     </Link>
                   ))}
@@ -119,7 +131,7 @@ render(){
         </Disclosure>
         </div>
       )
-    }
+    // }
 }
 
 export default Menu
