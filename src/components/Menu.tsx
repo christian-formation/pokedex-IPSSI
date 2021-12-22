@@ -19,8 +19,7 @@ const navigation = [
   }
 
 const Menu = ()=>{
-// class Menu extends Component{
-// render(){
+
     // Utilisation de ce hook pour notre active link
     const router = useRouter()
     return (
@@ -131,7 +130,6 @@ const Menu = ()=>{
         </Disclosure>
         </div>
       )
-    // }
 }
 
 export default Menu
