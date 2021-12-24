@@ -14,6 +14,20 @@ async AllPokemon(){
     } catch (error) {
         console.log(error)
     }
+},
+
+//Route pour récupérer un pokemon par son url 
+async PokemonByUrl(url){
+    try {
+        let response = await axios.get(url)
+        .then((data)=>{
+          return data;
+        })
+        return response.data
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 }

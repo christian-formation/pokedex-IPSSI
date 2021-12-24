@@ -7,7 +7,7 @@ import { HeartIcon, MenuIcon, MailIcon, XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 
-import React,{Component} from 'react'
+// import React,{Component} from 'react'
 
 const navigation = [
     { name: 'Accueil', href: '/', current: false },
