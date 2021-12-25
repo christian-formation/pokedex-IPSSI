@@ -28,7 +28,22 @@ async PokemonByUrl(url){
     } catch (error) {
         console.log(error)
     }
-}
+},
+
+//Route pour récupérer tout les types
+async AllType(){
+    try {
+        let response = await axios.get('https://pokeapi.co/api/v2/type')
+        .then((data)=>{
+          return data;
+        })
+        return response.data.results
+
+    } catch (error) {
+        console.log(error)
+    }
+},
+
 
 }
 

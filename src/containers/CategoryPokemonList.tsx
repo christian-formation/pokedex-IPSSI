@@ -9,7 +9,7 @@ render(){
     return (
         <div>
         <Head>
-            <title className={styles.title}>Welcome to the Ipssi Pokedex</title>
+            <title className={styles.title}>Welcome to the Ipssi Pokedex - Categorie</title>
             <meta name="description" content="Student pokedex project" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
