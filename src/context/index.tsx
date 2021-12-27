@@ -46,7 +46,6 @@ const Provider = ({ children }:Props) => {
   }
 
   // Set pokedex si search dans l'url
-  console.log("router",router)
     useEffect(()=>{
       if(router.query.search){
       const SearchInPokemonListUrl = async()=>{
@@ -116,8 +115,27 @@ useEffect(()=>{
 },[router])
 
 
+//Environement pour les favoris
+  // const [pokedexFavoris,setPokedexFavoris] = useState([])
+  const AddPokemon = (pokemon:any)=>(event:any)=>{
+    let favoris = []
+    event.preventDefault()
+    // let stock = JSON.parse(localStorage.getItem("pokedex") || '[]');
+    favoris.push(pokemon)
+    if(localStorage.getItem("pokedex")){
+     let stock = JSON.parse(localStorage.getItem("pokedex") || '[]')
+     stock.push(pokemon)
+    //  console.log("stock",stock)
+     localStorage.setItem("pokedex",JSON.stringify( stock ))
+    }else{
+      localStorage.setItem("pokedex",JSON.stringify(favoris))
+    }
+    // let stock:never[] = JSON.parse(localStorage.getItem("pokedex") )
+    // setPokedexFavoris( stock)
+  }
+
   return (
-    <MainContext.Provider value={{ pokedex, loading, notFound, SearchInPokemonList, colorType}}>
+    <MainContext.Provider value={{ pokedex, loading, notFound, SearchInPokemonList, colorType,AddPokemon}}>
       {children}
     </MainContext.Provider>
   );

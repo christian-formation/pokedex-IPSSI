@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import { HeartIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import MainContext from '../context'
 
 
-const PokemonItem = ({slug,name,imageSrc,imageAlt}:any)=>{
+const PokemonItem = ({slug,name,imageSrc,imageAlt,favoris}:any)=>{
 
     const [isError,setIsError] = useState(false)
     const [src,setSrc] = useState("/404-error.svg")
@@ -54,6 +55,14 @@ const PokemonItem = ({slug,name,imageSrc,imageAlt}:any)=>{
         />
     )
 
+    interface context {
+        [AddPokemon: string]: any;
+    }
+
+    const {AddPokemon}:context = useContext(MainContext)
+
+
+
     return (
         <div>
                 <div className="p-2 w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
@@ -79,9 +88,9 @@ const PokemonItem = ({slug,name,imageSrc,imageAlt}:any)=>{
             <div className="flex  items-center justify-center" role="group" aria-label="Button group">
                 <Link href={"/detail/"+slug} passHref><button className="h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-l-lg focus:shadow-outline hover:bg-indigo-800">Détail</button></Link>
                 <button className="h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 focus:shadow-outline hover:bg-indigo-800">Verso</button>
-                <button className="h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-r-lg focus:shadow-outline hover:bg-indigo-800"><HeartIcon className="h-6 w-6" aria-hidden="true" /></button>
+                <button onClick={favoris} className="h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-r-lg focus:shadow-outline hover:bg-indigo-800"><HeartIcon className="h-6 w-6" aria-hidden="true" /></button>
             </div>
-        </div>       
+        </div>      
       )
 }
 

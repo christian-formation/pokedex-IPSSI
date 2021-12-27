@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import FavorisPokemonList from '../src/containers/FavorisPokemon'
+import FavorisPokemonList from '../src/containers/FavorisPokemonList'
 
 const Favoris: NextPage = () => {
   return <FavorisPokemonList/>
