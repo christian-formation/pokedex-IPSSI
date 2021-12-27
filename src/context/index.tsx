@@ -23,7 +23,6 @@ const Provider = ({ children }:Props) => {
       }
    // Equivalent componentDidUnmont on charge les pokemon dès la fin du render
    useEffect(() => {
-    console.log("router length",Object.keys(router.query).length)
     if(Object.keys(router.query).length==0){ 
       fullPokemon()
     }
@@ -33,10 +32,7 @@ const Provider = ({ children }:Props) => {
   const SearchInPokemonList = async (event:{key:string,target:{value:string}} ) => {
     if (event.key === "Enter") {
       console.log("event",event["target"]["value"])
-      // const data = await PokeApi.AllPokemon()
-      console.log("data",pokedex)
       const found = pokedex.find((element:{ name: string })=>element.name.toUpperCase()==event["target"]["value"].toUpperCase())
-      // const found = data.find((element:{ name: string | string[] | undefined })=>element.name==event["target"]["value"])
       let filtered:any = [] 
       if(found){
         filtered.push(found)
@@ -58,13 +54,11 @@ const Provider = ({ children }:Props) => {
         const name  =typeof(router.query.search)=="string"? router.query.search.toUpperCase():""
 
         const data = await PokeApi.AllPokemon()
-        console.log("data",data)
         const found = data.find((element:{ name: string })=>element.name.toUpperCase()==name)
         let filtered:any = [] 
         if(found){
           filtered.push(found)
         }
-        console.log("filtered",filtered)
         setPokedex(filtered)
         filtered.length>0?setLoading(false):setLoading(true)
         filtered.length>0?setNotFound(false):setNotFound(true)
@@ -73,9 +67,57 @@ const Provider = ({ children }:Props) => {
     }
     },[router])
   
+  // setColor type categorie
+  const [colorType,setColorType] = useState({})
+
+useEffect(()=>{
+  const color = 
+{
+NORMAL:"#D0D0C9",
+FIGHTING:"#A75543",
+FLYING:"#77A2FF",
+POISON:"#9A5590",
+GROUND:"#E4C556",
+ROCK:"#CCBC72",
+BUG:"#BCCB1D",
+GHOST:"#7874D5",
+STEEL:"#C3C2D9",
+FIRE:"#F95442",
+WATER:"#58ADFF",
+GRASS:"#8AD450",
+ELECTRIC:"#FDE33C",
+PSYCHIC:"#F361AC",
+ICE:"#96F2FF",
+DRAGON:"#8272FC",
+DARK:"#856250",
+FAIRY:"#F7ADFF",
+UNKNOWN:"#FFFFFF",
+SHADOW:"#000000",
+}
+setColorType(color)
+
+},[])
+
+//Environement pour récuperer le type selectioné
+
+useEffect(()=>{
+  if(router.query.categoryName){
+    console.log("categoryName",router.query.categoryName)
+    const name = router.query.categoryName
+    const pokemonByTypeName = async ()=>{
+      const data:any = await PokeApi.AllPokemonByType(name)
+      console.log("dataAllTypeName",data) 
+      setPokedex(data)
+      data?setLoading(false):setLoading(true)
+      data?setNotFound(false):setNotFound(true)   
+    }
+    pokemonByTypeName()
+  }
+},[router])
+
 
   return (
-    <MainContext.Provider value={{ pokedex, loading, notFound, SearchInPokemonList}}>
+    <MainContext.Provider value={{ pokedex, loading, notFound, SearchInPokemonList, colorType}}>
       {children}
     </MainContext.Provider>
   );

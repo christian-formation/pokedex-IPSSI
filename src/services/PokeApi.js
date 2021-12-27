@@ -44,6 +44,25 @@ async AllType(){
     }
 },
 
+//Route pour récupérer tout les types
+async AllPokemonByType(name){
+    try {
+        let response = await axios.get('https://pokeapi.co/api/v2/type/'+name)
+        .then((data)=>{
+          return data;
+        })
+
+        let pokemonBytype = []
+        response.data.pokemon.forEach(element => {
+            pokemonBytype.push(element.pokemon) 
+        });
+
+        return pokemonBytype
+
+    } catch (error) {
+        console.log(error)
+    }
+},
 
 }
 

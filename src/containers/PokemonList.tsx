@@ -3,32 +3,18 @@ import styles from '../../styles/Home.module.scss'
 import PokemonItem from '../components/PokemonItem'
 import Loading from '../components/Loading'
 import { useContext } from 'react'
-// import { useContext, useEffect,useState} from 'react'
-// import PokeApi from '../services/PokeApi'
 import MainContext from '../context'
 import PokemonSearch from '../components/PokemonSearch'
 
 const PokemonList =()=> {
 
-  // // Appel du service PokeApi et initialisation du state
-  // const [pokedex, setPokedex] = useState([])
-  // const [loading, setLoading] = useState(true)
-  // const fullPokemon = async()=>{ const data = await PokeApi.AllPokemon()
-  //   setPokedex(data)
-  //   data?setLoading(false):setLoading(true)
-  // }
 
   //Utile pour récuperer l'id de chaque pokemon via la dimension url
   const split = (url:string)=>{
     let id = url.split("/")
     return id[6]
   }
-
-  //   // Equivalent componentDidUnmont 
-  //  useEffect(() => {
-  //     fullPokemon()
-  //     },[]);
-    
+ 
     interface Object {
         [pokemon: string]: any
     }
