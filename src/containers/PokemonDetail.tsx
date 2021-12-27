@@ -40,7 +40,7 @@ const PokemonDetail = ()=> {
         interface context {
             [pokedex: string]: any
         }
-        const {pokedex}:context= useContext(MainContext) 
+        const {pokedex,colorType}:context= useContext(MainContext) 
         // const {fullPokemon}:context= useContext(MainContext) 
         const router = useRouter()
 
@@ -163,7 +163,7 @@ const PokemonDetail = ()=> {
                                         <td className="px-1 py-3 text-left">
                                         {
                                         
-                                        type.map((element,index)=>(<span key={index} className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-black bg-gray-200 last:mr-0 mr-1">{element['type']['name']}</span>))
+                                        type.map((element:{type:{name:string}},index)=>(<span key={index} style={{backgroundColor:colorType[element['type']['name'].toUpperCase()]}} className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-black last:mr-0 mr-1">{element['type']['name']}</span>))
                                         
                                         }
                                         </td>

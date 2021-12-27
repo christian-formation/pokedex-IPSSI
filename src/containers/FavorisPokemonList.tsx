@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import styles from '../../styles/Home.module.scss'
 import Loading from '../components/Loading'
-import { useContext } from 'react'
-import MainContext from '../context'
 import PokemonSearch from '../components/PokemonSearch'
 import PokemonItemFavoris from "../components/PokemonItemFavoris"
 
@@ -17,12 +15,6 @@ const split = (url:string)=>{
         [pokemon: string]: any
     }
 
-    interface context {
-      [pokedex: string]: any;
-      [loading: number]: any
-  }
-
-    // const {pokedexFavoris,loading,notFound}:context = useContext(MainContext)
     let stock = JSON.parse(localStorage.getItem("pokedex") || '[]');
     let notFound = stock =="[]"?true:false
     const loading = false

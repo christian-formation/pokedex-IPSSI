@@ -31,13 +31,11 @@ const Provider = ({ children }:Props) => {
   // Environement de filtre
   const SearchInPokemonList = async (event:{key:string,target:{value:string}} ) => {
     if (event.key === "Enter") {
-      console.log("event",event["target"]["value"])
       const found = pokedex.find((element:{ name: string })=>element.name.toUpperCase()==event["target"]["value"].toUpperCase())
       let filtered:any = [] 
       if(found){
         filtered.push(found)
       }
-      console.log("filtered",filtered)
       setPokedex(filtered)
       filtered.length>0?setNotFound(false):setNotFound(true)
       const name = event["target"]["value"]
@@ -101,11 +99,9 @@ setColorType(color)
 
 useEffect(()=>{
   if(router.query.categoryName){
-    console.log("categoryName",router.query.categoryName)
     const name = router.query.categoryName
     const pokemonByTypeName = async ()=>{
-      const data:any = await PokeApi.AllPokemonByType(name)
-      console.log("dataAllTypeName",data) 
+      const data:any = await PokeApi.AllPokemonByType(name) 
       setPokedex(data)
       data?setLoading(false):setLoading(true)
       data?setNotFound(false):setNotFound(true)   
@@ -116,23 +112,18 @@ useEffect(()=>{
 
 
 //Environement pour les favoris
-  // const [pokedexFavoris,setPokedexFavoris] = useState([])
   const AddPokemon = (pokemon:any)=>(event:any)=>{
     let favoris = []
     event.preventDefault()
-    // let stock = JSON.parse(localStorage.getItem("pokedex") || '[]');
     favoris.push(pokemon)
     if(localStorage.getItem("pokedex")){
      let stock = JSON.parse(localStorage.getItem("pokedex") || '[]')
      stock.push(pokemon)
-    //  console.log("stock",stock)
      localStorage.setItem("pokedex",JSON.stringify( stock ))
     }else{
       localStorage.setItem("pokedex",JSON.stringify(favoris))
     }
-    // let stock:never[] = JSON.parse(localStorage.getItem("pokedex") )
-    // setPokedexFavoris( stock)
-  }
+  } 
 
   return (
     <MainContext.Provider value={{ pokedex, loading, notFound, SearchInPokemonList, colorType,AddPokemon}}>
